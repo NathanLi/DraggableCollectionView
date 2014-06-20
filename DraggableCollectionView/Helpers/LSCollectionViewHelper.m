@@ -271,9 +271,6 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
                 self.layoutHelper.toIndexPath = nil;
             } completion:^(BOOL finished) {
                 if (finished) {
-                    if ([dataSource respondsToSelector:@selector(collectionView:didMoveItemAtIndexPath:toIndexPath:)]) {
-                        [dataSource collectionView:self.collectionView didMoveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-                    }
                 }
             }];
             
@@ -290,6 +287,12 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
                  mockCell = nil;
                  self.layoutHelper.hideIndexPath = nil;
                  [self.collectionView.collectionViewLayout invalidateLayout];
+                 
+                 if ([dataSource respondsToSelector:@selector(collectionView:didMoveItemAtIndexPath:toIndexPath:)]) {
+                     [dataSource collectionView:self.collectionView didMoveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+                 }else{
+                     [self.collectionView reloadData];
+                 }
              }];
             
             // Reset
