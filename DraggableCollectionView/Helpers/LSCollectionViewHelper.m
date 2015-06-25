@@ -152,6 +152,14 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
     return NO;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (gestureRecognizer.numberOfTouches < 1) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 - (NSIndexPath *)indexPathForItemClosestToPoint:(CGPoint)point
 {
     NSArray *layoutAttrsInRect;
